@@ -89,4 +89,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(PunchoutSession::class);
     }
+    public function locations()
+    {
+        return $this->belongsToMany(Location::class, 'user_has_location', 'user_id', 'location_id');
+    }
 }
