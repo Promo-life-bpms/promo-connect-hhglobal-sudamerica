@@ -257,6 +257,7 @@ class FormularioDeCotizacion extends Component
             'destino' => isset($this->destino)? 1:0,
             'detalles' => $this->detalles != ""? $this->detalles : "",
             'proyecto'=> $this->projecName,
+            'location' => isset(auth()->user()->locations[0]->id)? auth()->user()->locations[0]->id: 0
         ]);
 
         if ($currentQuote === null) {

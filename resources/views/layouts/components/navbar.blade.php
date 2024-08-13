@@ -7,7 +7,7 @@
                 <img src="{{asset('img/hh-logo.png')}}"
                     style="object-fit: cover; width:100px;"
                     alt="logo" class="p-2 ">
-                    <div class="text-black text-sm bg-stone-200 " style="margin: 0 0 0 4px; padding:0 4px 0 4px; height:20px; margin-top:8px;">México</div>
+                    <div class="text-black text-sm bg-stone-200 " style="margin: 0 0 0 4px; padding:0 4px 0 4px; height:20px; margin-top:8px;"> {{isset( auth()->user()->locations[0]->name)?  auth()->user()->locations[0]->name : 'No disponible' }}</div>
             </a>
           
         </div>
