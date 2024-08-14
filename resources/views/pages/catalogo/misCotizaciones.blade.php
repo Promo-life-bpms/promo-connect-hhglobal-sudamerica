@@ -67,6 +67,9 @@
         </div>
     </div>
 
+    @php
+        $locations =  App\Models\Location::all();
+    @endphp
 
     <br>
     <div class="w-full">
@@ -119,8 +122,14 @@
                         </form>
 
                     </td>
-                    <td>
+                    <td class="text-center">
                         {{$proyecto}}
+                        <br>
+                        @foreach($locations as $location)
+                            @if($location->id == $quote->location_id)
+                                <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">{{ $location->name }}</span>
+                            @endif
+                        @endforeach
                     </td>
                     <td class="text-center">
                         @if($quote->logo == null || $quote->logo == '')

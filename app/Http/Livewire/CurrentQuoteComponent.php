@@ -277,6 +277,7 @@ class CurrentQuoteComponent extends Component
                 $createQuote->show_total = 1;
                 $createQuote->logo = $cotizacion->logo ;
                 $createQuote->status = 0;
+                $createQuote->location_id = isset($current_quote_more_details[0]->location)?$current_quote_more_details[0]->location : 0;
                 $createQuote->save();
     
                 $createQuoteDiscount = new QuoteDiscount();
