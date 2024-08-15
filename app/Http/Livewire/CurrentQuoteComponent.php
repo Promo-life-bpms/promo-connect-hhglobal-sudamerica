@@ -348,7 +348,7 @@ class CurrentQuoteComponent extends Component
      
         /* $pdf = \PDF::loadView('pages.pdf.cotizacionBH', ['date' => $date, 'cotizacionActual' => $cotizacionActual, 'startQS' => $startQS]); */
         $pdf->setPaper('Letter', 'portrait');
-        $filename = "Cotizacion.pdf";
+        $filename = "Cotizacion-SQ".$createQuote->id. ".pdf";
         $pdf->save(public_path($filename));
         $this->pdfDescargado = true;
 
