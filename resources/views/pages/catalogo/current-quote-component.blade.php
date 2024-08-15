@@ -201,7 +201,8 @@
                     <hr class="border-black"> --}}
                     <div class="flex justify-between">
                         <p>Total:</p>
-                        <p class="font-bold">$ {{ number_format(round($totalQuote, 2), 2, '.', ',') }} </p>
+                        <p class="font-bold">$ {{ number_format(round($totalQuote, 2), 2, '.', ',') }} + IVA</p>
+                        
                     </div>
                     <hr class="border-black">
                     <!-- <a href="{{ route('finalizar') }}" 

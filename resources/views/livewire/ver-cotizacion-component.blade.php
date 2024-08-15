@@ -158,7 +158,7 @@
                 <span class="">Total :</span>
                 <strong class="text-right">$
                     {{ number_format($quote->latestQuotesUpdate->quoteProducts->sum('precio_total'), 2, '.', ',') }}
-                </strong>
+                </strong> 
                 <hr class="col-span-2 h-[2.0px] bg-black">
             </div>
             @role('seller')
