@@ -16,6 +16,7 @@ use App\Http\Controllers\ShoppingController;
 use App\Http\Controllers\SpecialController;
 use App\Http\Controllers\StadisticController;
 use App\Http\Controllers\TemporalImageUrlController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -52,6 +53,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/catalogo/{product}', [CotizadorController::class, 'verProducto'])->name('show.product');
 /*     Route::get('/mis-compras', [CotizadorController::class, 'cotizaciones'])->name('compras');
  */    
+
+    Route::get('/mi-cuenta', [UserController::class, 'miCuenta'])->name('user.account');
+    Route::post('/actualizar-localidad', [UserController::class, 'actualizarLocalidad'])->name('user.updatelocate');
+
     Route::get('/mis-compras', [CotizadorController::class, 'compras'])->name('compras');
     Route::post('/mis-compras/actualizar', [CotizadorController::class, 'comprasStatus'])->name('compras.status');
     Route::post('/mis-compras/actualizar/of/buyers', [CotizadorController::class, 'comprasStatusdeCompradores'])->name('compras.status.of.buyers');

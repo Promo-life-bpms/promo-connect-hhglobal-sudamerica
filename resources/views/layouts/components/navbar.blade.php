@@ -4,10 +4,19 @@
     
         <div class="w-full md:w-3/12 mb-2 md:mb-0">
             <a href="{{ route('index') }}" class="flex">
+
+                @php
+                    use App\Models\Location;
+                    if(auth()->user()->current_location != null){
+                        $location = Location::find(auth()->user()->current_location);
+                    }else{
+                        $location = null;
+                    }
+                @endphp
                 <img src="{{asset('img/hh-logo.png')}}"
                     style="object-fit: cover; width:100px;"
                     alt="logo" class="p-2 ">
-                    <div class="text-black text-sm bg-stone-200 " style="margin: 0 0 0 4px; padding:0 4px 0 4px; height:20px; margin-top:8px;"> {{isset( auth()->user()->locations[0]->name)?  auth()->user()->locations[0]->name : 'No disponible' }}</div>
+                    <div class="text-black text-sm bg-stone-200 " style="margin: 0 0 0 4px; padding:0 4px 0 4px; height:20px; margin-top:8px;"> {{$location != null ?  $location->name : 'No disponible' }}</div>
             </a>
           
         </div>
@@ -79,7 +88,8 @@
             </div>
         </div>
 
-       
+    
+
 
         <div class="w-full md:w-3/12 -mt-2 text-white">
             <div class="flex flex-col md:flex-row justify-around">
@@ -310,6 +320,9 @@
                     <div id="dropdown"
                         class="z-40 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44  hover:">
                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
+
+                            <a href="{{ route('user.account') }}" class="w-full text-left text-xs block px-4 py-2 hover:text-black hover:bg-stone-50">Mi cuenta</a>
+
                             @role('buyers-manager')
                                 <!-- <li>
                                     <a href="{{ route('administrador') }}"
