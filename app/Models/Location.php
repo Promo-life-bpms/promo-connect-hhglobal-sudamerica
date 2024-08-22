@@ -11,6 +11,14 @@ class Location extends Model
 
     public $table = 'location';
 
+    protected $fillable = [
+        'id',
+        'name',
+        'description',
+        'currency',
+        'value',
+    ];
+
     public function users()
     {
         return $this->belongsToMany(User::class, 'user_has_location', 'location_id', 'user_id');

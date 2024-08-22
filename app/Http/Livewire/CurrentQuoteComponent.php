@@ -51,7 +51,13 @@ class CurrentQuoteComponent extends Component
 
     public function mount()
     {
-        $this->cotizacionActual = auth()->user()->currentQuote->currentQuoteDetails;
+        $user = auth()->user();
+        $currentQuote = $user->currentQuote;
+       
+        $this->cotizacionActual = $currentQuote->currentQuoteDetails()
+                ->where('location_id', $user->current_location)
+                ->get();
+       
         $this->totalQuote = $this->cotizacionActual->sum('precio_total');
         if (auth()->user()->currentQuote->discount) {
             $this->value = auth()->user()->currentQuote->value;
@@ -71,7 +77,14 @@ class CurrentQuoteComponent extends Component
     {
 
         $ccd = CurrentQuoteDetails::find('current_quote_id');
-        $this->cotizacionActual = auth()->user()->currentQuote->currentQuoteDetails;
+
+        $user = auth()->user();
+        $currentQuote = $user->currentQuote;
+       
+        $this->cotizacionActual = $currentQuote->currentQuoteDetails()
+                ->where('location_id', $user->current_location)
+                ->get();
+
         $this->totalQuote = 0;
 
         foreach ($this->cotizacionActual as $productToSum) {
@@ -216,7 +229,12 @@ class CurrentQuoteComponent extends Component
         
         $date =  Carbon::now()->format("d/m/Y");
 
-        $cotizacionActual = auth()->user()->currentQuote->currentQuoteDetails;
+        $user = auth()->user();
+        $currentQuote = $user->currentQuote;
+       
+        $cotizacionActual= $currentQuote->currentQuoteDetails()
+                ->where('location_id', $user->current_location)
+                ->get();
 
         $totalQuote = 0;
 
@@ -247,8 +265,6 @@ class CurrentQuoteComponent extends Component
         }
         $discount = $discountMount;
         
-        $cotizacionActual = auth()->user()->currentQuote->currentQuoteDetails;
-
         $quoteCotizationNumber = [];
 
         foreach($cotizacionActual as $cotizacion){
@@ -277,7 +293,7 @@ class CurrentQuoteComponent extends Component
                 $createQuote->show_total = 1;
                 $createQuote->logo = $cotizacion->logo ;
                 $createQuote->status = 0;
-                $createQuote->location_id = isset($current_quote_more_details[0]->location)?$current_quote_more_details[0]->location : 0;
+                $createQuote->location_id = $cotizacion->location_id != null?$cotizacion->location_id: null;
                 $createQuote->save();
     
                 $createQuoteDiscount = new QuoteDiscount();

@@ -77,7 +77,7 @@
             <thead>
                 <tr class="bg-black text-white text-sm ">
                     <th class="p-4" style="width:5%;">Cotizacion</th>
-                    <th style="width:5%;">Proyecto</th>
+                    <th style="width:10%;">Proyecto</th>
                     <th style="width:5%;">Logo</th>
                     <th style="width:10%;">Producto</th>
                     <th style="width:10%;">Usuario</th>

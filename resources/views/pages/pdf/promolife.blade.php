@@ -72,7 +72,9 @@
 
                 $productLogo = optional($productData)->logo;
 
-
+                $user_location = auth()->user()->current_location;
+    
+                $location = \App\Models\Location::where('id', $user_location)->get()->first();
 /*                 $category = $product->categories[0]->id;
  */
                 $productBD =  optional(\App\Models\Catalogo\Product::where('id', $productData->id)->latest()->first());
@@ -110,7 +112,7 @@
                             <p style="margin-left:60px;">Cotizacion: <b>SQ-{{ $quote->id }}</b></p>
                         </th>
                         <th style="width:50%" colspan="3">
-                            <p style="margin-left:60px;">Localidad: {{auth()->user()->locations[0]->name }} </b></p>
+                            <p style="margin-left:60px;">Localidad: {{$location->name }} </b></p>
                         </th>
                     </tr>
                 </table>
@@ -198,8 +200,8 @@
                     </tr>
                     <tr>
                         <td colspan="1"> {{ $product->cantidad}} piezas</td>
-                        <td colspan="1"> $ {{ number_format($product->precio_unitario , 2, '.', ',') }} {{isset( auth()->user()->locations[0]->currency)?  auth()->user()->locations[0]->currency : '' }} </td>
-                        <td colspan="1"> $ {{ number_format($product->precio_total , 2, '.', ',') }} {{isset( auth()->user()->locations[0]->currency)? auth()->user()->locations[0]->currency  : '' }} </td>
+                        <td colspan="1"> $ {{ number_format($product->precio_unitario , 2, '.', ',') }} {{ $location->currency != null? $location->currency: '' }} </td>
+                        <td colspan="1"> $ {{ number_format($product->precio_total , 2, '.', ',') }} {{ $location->currency != null? $location->currency: '' }} </td>
                     </tr>
                 </table>
             <br>
@@ -212,7 +214,7 @@
         <ul>
             <li>Condiciones de pago acordadas en el contrato</li>
             <li>Precios unitarios mostrados antes de IVA</li>
-            <li>Precios mostrados en {{isset( auth()->user()->locations[0]->currency)?  auth()->user()->locations[0]->currency : 'No disponible' }}</li>
+            <li>Precios mostrados en {{ $location->currency != null?  $location->currency: 'No disponible' }}</li>
             <li>Una vez entregada la orden de compra y/o muestra física aprobada, la entrega de los productos se realizará en un plazo estimado de 10 días hábiles.</li>
             <li>Antes de generar la orden de compra, le invitamos a verificar la disponibilidad actual de stock para garantizar la prontitud en el cumplimiento de su pedido.</li>
         </ul>

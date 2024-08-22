@@ -12,19 +12,44 @@ class CountCartQuote extends Component
     protected $listeners = ['currentQuoteAdded'];
 
     public function currentQuoteAdded()
-    {
+    {        
+        $user = auth()->user();
+        $currentQuote = $user->currentQuote;
+        $contador = 0;
+        
         if (auth()->user()->currentQuote) {
-            $this->total = count(auth()->user()->currentQuote->currentQuoteDetails);
+
+            foreach(auth()->user()->currentQuote->currentQuoteDetails as $currentQuote){
+                if($currentQuote->location_id == $user->current_location){
+                    $contador = $contador + 1;
+                }
+            }
+
+            $this->total = $contador;
         } else {
             $this->total;
-        }
+        } 
     }
 
     public function mount()
     {
+        $user = auth()->user();
+        $currentQuote = $user->currentQuote;
+        $contador = 0;
+        
         if (auth()->user()->currentQuote) {
-            $this->total = count(auth()->user()->currentQuote->currentQuoteDetails);
-        }
+
+            foreach(auth()->user()->currentQuote->currentQuoteDetails as $currentQuote){
+              
+                if($currentQuote->location_id == $user->current_location){
+                    $contador = $contador + 1;
+                }
+            }
+
+            $this->total = $contador;
+        } else {
+            $this->total;
+        } 
     }
     public function render()
     {

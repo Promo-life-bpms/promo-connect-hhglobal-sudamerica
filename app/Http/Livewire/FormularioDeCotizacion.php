@@ -230,7 +230,7 @@ class FormularioDeCotizacion extends Component
 
     public function agregarCarrito()
     {
-        
+
         $user = Auth::user();
 
         $this->validate([
@@ -257,13 +257,14 @@ class FormularioDeCotizacion extends Component
             'destino' => isset($this->destino)? 1:0,
             'detalles' => $this->detalles != ""? $this->detalles : "",
             'proyecto'=> $this->projecName,
-            'location' => isset(auth()->user()->locations[0]->id)? auth()->user()->locations[0]->id: 0
+            'location' => auth()->user()->current_location
         ]);
 
         if ($currentQuote === null) {
 
             $currentQuote = auth()->user()->currentQuote()->create([
-                'discount' => false
+                'discount' => false,
+                'location_id' => auth()->user()->current_location
             ]);
         } else {
             if (auth()->user()->currentQuote) {
@@ -300,7 +301,8 @@ class FormularioDeCotizacion extends Component
             'precio_unitario' => $this->costoCalculado,
             'precio_total' => $this->costoTotal,
             'logo' => $imageName,
-            'more_details' => json_encode($more_detail)
+            'more_details' => json_encode($more_detail),
+            'location_id' => auth()->user()->current_location
         ];
 
         $createCurrentQuote =  $currentQuote->currentQuoteDetails()->create($dataQuote);

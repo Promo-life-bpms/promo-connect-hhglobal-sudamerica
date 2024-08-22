@@ -23,7 +23,7 @@
 
         <h2 class="font-semibold text-lg mb-4">Mi información</h2>
        
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
            
                 <div>
                     <p>Nombre</p>

@@ -511,11 +511,18 @@ class CotizadorController extends Controller
 
     public function misCotizaciones()
     {
+        $user = auth()->user();
+        $currentLocationId = $user->current_location;
 
-        if (auth()->user()->hasRole("buyers-manager")) {
-            $quotes = Quote::orderBy('created_at', 'desc')->simplePaginate(10);
+        if ($user->hasRole("buyers-manager")) {
+            $quotes = Quote::where('location_id', $currentLocationId)
+                ->orderBy('created_at', 'desc')
+                ->simplePaginate(10);
         } else {
-            $quotes = auth()->user()->quotes()->orderBy('created_at', 'desc')->simplePaginate(10);
+            $quotes = $user->quotes()
+                ->where('location_id', $currentLocationId)
+                ->orderBy('created_at', 'desc')
+                ->simplePaginate(10);
         }
 
         return view('pages.catalogo.misCotizaciones', compact('quotes'));
