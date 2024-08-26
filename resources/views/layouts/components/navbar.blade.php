@@ -3,23 +3,60 @@
 
     
         <div class="w-full md:w-3/12 mb-2 md:mb-0">
-            <a href="{{ route('index') }}" class="flex">
+            <div class="flex">
+                <a href="{{ route('index') }}" class="flex">
 
-                @php
-                    use App\Models\Location;
-                    if(auth()->user()->current_location != null){
-                        $location = Location::find(auth()->user()->current_location);
-                    }else{
-                        $location = null;
-                    }
-                @endphp
-                <img src="{{asset('img/hh-logo.png')}}"
-                    style="object-fit: cover; width:100px;"
-                    alt="logo" class="p-2 ">
-                    <div class="text-black text-sm bg-stone-200 " style="margin: 0 0 0 4px; padding:0 4px 0 4px; height:20px; margin-top:8px;"> {{$location != null ?  $location->name : 'No disponible' }}</div>
-            </a>
+                    @php
+                        use App\Models\Location;
+                        if(auth()->user()->current_location != null){
+                            $location = Location::find(auth()->user()->current_location);
+                        }else{
+                            $location = null;
+                        }
+
+                        $locations =  Location::all();
+                    @endphp
+                    <img src="{{asset('img/hh-logo.png')}}"
+                        style="object-fit: cover; width:100px;"
+                        alt="logo" class="p-2 ">
+    {{--                     <div class="text-black text-sm bg-stone-200 " style="margin: 0 0 0 4px; padding:0 4px 0 4px; height:20px; margin-top:8px;"> {{$location != null ?  $location->name : 'No disponible' }}</div>
+     --}}
+                </a>
+                <div wire:ignore>
+                    <button  id="locateDrop" data-dropdown-toggle="dropdown2" style="background-color: rgb(222, 222, 222); margin: 0 0 0 4px; padding:0 4px 0 4px; height:20px; margin-top:8px;" type="button">
+                        {{$location != null ?  $location->name : 'No disponible' }}
+                        <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                        </svg>
+                    </button>
+                </div>
+    
+                <div id="dropdown2" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="locateDrop">
+
+                        @foreach($locations as $loc)
+                            <form action="{{ route('user.updatelocate')}}" method="POST" >
+                                @csrf 
+                                <input type="" name="location" id="" value="{{$loc->id}}" hidden>
+
+                                <li>
+                                    <input type="submit" value="{{ $loc->name }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white cursor-pointer">
+                                </li>
+
+                                
+                            </form>
+                           
+                        @endforeach
+           
+                       
+                    </ul>
+                </div>
+
+            </div>
+           
           
         </div>
+
        
         <div id="popup-modal" tabindex="-1"
             class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -351,6 +388,10 @@
                                     <a href="{{ route('muestras') }}"
                                         class="w-full text-left text-xs block px-4 py-2 hover:text-black hover:bg-stone-50">
                                         Muestras</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('misCotizaciones') }}"
+                                    class="w-full text-left text-xs block px-4 py-2 hover:text-black hover:bg-stone-50">Mis cotizaciones</a>
                                 </li>
                             @endrole
 

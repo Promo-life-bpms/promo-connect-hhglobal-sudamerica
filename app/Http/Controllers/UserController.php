@@ -29,6 +29,7 @@ class UserController extends Controller
             'current_location' => $request->location
         ]);
 
+        
         return redirect()->back()->with('message', 'localidad cambiada correctamente');
 
     }
