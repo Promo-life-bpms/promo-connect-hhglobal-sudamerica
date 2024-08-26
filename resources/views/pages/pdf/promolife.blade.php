@@ -212,6 +212,7 @@
     <div style="margin-left:30px;">
         <p> Condiciones:</p>
         <ul>
+            <li style="color:red;">Cotización de referencia</li>
             <li>Condiciones de pago acordadas en el contrato</li>
             <li>Precios unitarios mostrados antes de IVA</li>
             <li>Precios mostrados en {{ $location->currency != null?  $location->currency: 'No disponible' }}</li>

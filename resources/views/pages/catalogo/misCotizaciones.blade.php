@@ -72,6 +72,10 @@
     @endphp
 
     <br>
+
+    <b style="color:red;">
+        Cotizaciones solo de referencia:
+    </b>
     <div class="w-full">
         <table class="table-auto">
             <thead>

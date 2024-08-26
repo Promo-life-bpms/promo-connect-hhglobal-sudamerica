@@ -89,7 +89,13 @@
                                 number_format($initialPrice,2);  
                             }}</p> --}}
 
-                            <p class="font-normal">Stock: <b>{{ $product->stock }}</b> </p>
+                            <p class="font-normal">Stock: <b>{{ $product->stock }}</b> 
+                                
+                                @if($product->stock < 10)
+                                    <b style="color:red;">Este producto cuenta con poco o nulo inventario</b> 
+                                @endif
+
+                            </p>
 
                             <div class="w-full mx-auto mt-2">
                                 <div class="flex border-b border-gray-300">

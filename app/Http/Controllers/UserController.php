@@ -30,7 +30,7 @@ class UserController extends Controller
         ]);
 
         
-        return redirect()->back()->with('message', 'localidad cambiada correctamente');
+        return redirect()->back()->with('locate', 'localidad cambiada correctamente');
 
     }
 }
