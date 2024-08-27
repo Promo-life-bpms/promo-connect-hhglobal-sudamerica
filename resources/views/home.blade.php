@@ -126,11 +126,11 @@
         </div>
     </section>
 
-    <div class="container mx-auto w-full py-8 bg-white" style="background-image: url('{{ asset('img/spiral.png') }}'); background-repeat: no-repeat; background-size: 100%; height:260px;">
-        <div class="flex flex-wrap justify-center">
+    <div class=" mx-auto w-full py-8 bg-white" style="background-image: url('{{ asset('img/spiral.png') }}'); background-repeat: no-repeat; background-size: 100%; height:360px;">
+        <div class="flex justify-between" style="margin: 0 12% 0 12%;">
             @foreach ($latestProducts as $product)
-                <a href="{{ route('show.product', ['product' => $product->id]) }}" class="flex items-center justify-center text-center overflow-hidden mx-4 group">
-                    <img src="{{ isset($product->firstImage->image_url) ? $product->firstImage->image_url : asset('/img/default.jpg') }}" alt="" srcset="" class="max-h-40 w-auto overflow-hidden group-hover:scale-105 transition-transform duration-300">
+                <a href="{{ route('show.product', ['product' => $product->id]) }}" class="flex items-center justify-center text-center overflow-hidden mx-4 group" style="width: 100px; margin-top:2%;">
+                    <img src="{{ isset($product->firstImage->image_url) ? $product->firstImage->image_url : asset('/img/default.jpg') }}" alt="" class="max-h-40 w-auto overflow-hidden group-hover:scale-105 transition-transform duration-300" style="width: 100%; opacity: 0.9;"> 
                 </a>
             @endforeach
         </div>
