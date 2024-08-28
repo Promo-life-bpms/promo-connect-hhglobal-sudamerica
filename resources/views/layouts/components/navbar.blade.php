@@ -365,6 +365,12 @@
                                     <a href="{{ route('administrador') }}"
                                         class="w-full text-left text-xs block px-4 py-2 hover:text-black hover:bg-stone-50">Administrador</a>
                                 </li> -->
+
+                                <li>
+                                    <a href="{{ route('view.stadistics') }}"
+                                        class="w-full text-left text-xs block px-4 py-2 hover:text-black hover:bg-stone-50">
+                                        Estadísticas</a>
+                                </li>
                             @endrole 
                             @role('seller')
                                 {{-- <li>

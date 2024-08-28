@@ -141,6 +141,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('admin/users', [AdminController::class, 'users'])->name('allusers');
 
     //////////ESTADISTICAS////////////
+
+    Route::get('/statistics/view', [StadisticController::class, 'viewStadistics'])->name('view.stadistics');
+
     Route::post('/statistics', [StadisticController::class, 'stadistics'])->name('download.stadistics');
 
 

@@ -109,4 +109,13 @@ class StadisticController extends Controller
         $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');
         $writer->save('php://output');
     }
+
+
+    public function  viewStadistics() {
+    
+
+        return view('pages.buyer.statistics');
+    }
+
+   
 }

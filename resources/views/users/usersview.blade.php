@@ -94,6 +94,7 @@
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">Registrar usuario</button>
                             </div>
+
                         </form>
                     </div>
                 </div>
