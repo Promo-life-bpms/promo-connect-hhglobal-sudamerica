@@ -85,7 +85,10 @@ class StadisticController extends Controller
         $sheet->setCellValue('E2', 'Descripción');
         $sheet->setCellValue('F2', 'Fecha y hora');
 
-        $user_logs = UserLogs::all();
+        $excludedUserIds = [1, 2, 3, 4,179, 180,181];
+        $user_logs = UserLogs::whereNotIn('user_id', $excludedUserIds)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         foreach($user_logs as $user){
             $start = $start +1;
@@ -113,8 +116,12 @@ class StadisticController extends Controller
 
     public function  viewStadistics() {
     
+        $excludedUserIds = [1, 2, 3, 4,179, 180,181];
+        $stadistics = UserLogs::whereNotIn('user_id', $excludedUserIds)
+            ->orderBy('created_at', 'desc')
+            ->paginate(30);
 
-        return view('pages.buyer.statistics');
+        return view('pages.buyer.statistics', compact('stadistics'));
     }
 
    

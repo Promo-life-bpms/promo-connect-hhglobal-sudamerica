@@ -1181,6 +1181,10 @@ input:checked + .toggle-bg {
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
+.my-20 {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+}
 .-ml-px {
   margin-left: -1px;
 }
@@ -2265,6 +2269,10 @@ input:checked + .toggle-bg {
 .py-2\.5 {
   padding-top: 0.625rem;
   padding-bottom: 0.625rem;
+}
+.py-20 {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
 }
 .py-3 {
   padding-top: 0.75rem;
