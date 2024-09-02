@@ -95,34 +95,47 @@ class FormularioDeCotizacion extends Component
         $utilidad = (float) config('settings.utility');
         
         $priceProduct = $this->product->price;
-        // Verifica si existe el atributo 'Outlet' y hace el 30 de descuento
-        $productType = $this->product->productAttributes->where('attribute', 'Tipo Descuento')->first();
-        if ($productType && $productType->value == 'Normal') {
-            $priceProduct = round($priceProduct - $priceProduct * (30 / 100), 2);
-        } else if ($productType && ($productType->value == 'Outlet' || $productType->value == 'Unico')) {
-            $priceProduct = round($priceProduct - $priceProduct * (0 / 100), 2);
-        } else {
-            if ($this->product->producto_promocion) {
-                $priceProduct = round($priceProduct - $priceProduct * ($this->product->descuento / 100), 2);
+
+    
+        if($this->product->provider_id == 1987 ){
+
+            $this->precio = $priceProduct;
+
+            $this->precioCalculado = $this->precio;
+
+        }else{
+            // Verifica si existe el atributo 'Outlet' y hace el 30 de descuento
+            $productType = $this->product->productAttributes->where('attribute', 'Tipo Descuento')->first();
+            if ($productType && $productType->value == 'Normal') {
+                $priceProduct = round($priceProduct - $priceProduct * (30 / 100), 2);
+            } else if ($productType && ($productType->value == 'Outlet' || $productType->value == 'Unico')) {
+                $priceProduct = round($priceProduct - $priceProduct * (0 / 100), 2);
             } else {
-                $priceProduct = round($priceProduct - $priceProduct *  ($this->product->provider->discount / 100), 2);
-            }
-            if ($this->product->provider->company == 'EuroCotton') {
-                $iva = $priceProduct * 0.16;
-                $priceProduct = round($priceProduct - $iva, 2);
-            }
-            if ($this->product->provider->company  == 'For Promotional') {
-                if ($this->product->descuento >= $this->product->provider->discount) {
-                    $priceProduct = round($this->product->price - $this->product->price * ($this->product->descuento / 100), 2);
+                if ($this->product->producto_promocion) {
+                    $priceProduct = round($priceProduct - $priceProduct * ($this->product->descuento / 100), 2);
                 } else {
-                    $priceProduct = round($this->product->price - $this->product->price * (25 / 100), 2);
+                    $priceProduct = round($priceProduct - $priceProduct *  ($this->product->provider->discount / 100), 2);
+                }
+                if ($this->product->provider->company == 'EuroCotton') {
+                    $iva = $priceProduct * 0.16;
+                    $priceProduct = round($priceProduct - $iva, 2);
+                }
+                if ($this->product->provider->company  == 'For Promotional') {
+                    if ($this->product->descuento >= $this->product->provider->discount) {
+                        $priceProduct = round($this->product->price - $this->product->price * ($this->product->descuento / 100), 2);
+                    } else {
+                        $priceProduct = round($this->product->price - $this->product->price * (25 / 100), 2);
+                    }
                 }
             }
+
+            $this->precio = $priceProduct;
+
+            $this->precioCalculado = $this->precio;
         }
 
-        $this->precio = $priceProduct;
 
-        $this->precioCalculado = $this->precio;
+
     }
 
     public function render()
@@ -211,8 +224,12 @@ class FormularioDeCotizacion extends Component
             $precioDeTecnicaUsado = $precioDeTecnica;
             if ($this->newPriceTechnique != null && $this->newPriceTechnique >= 0)
                 $precioDeTecnicaUsado = $this->newPriceTechnique;
-           
-            $this->costoCalculado = (($this->precio + ($precioDeTecnicaUsado * $this->colores) + $this->operacion) / 0.8) * 1.12;
+            
+            if($this->product->provider_id == 1987 ){
+                $this->costoCalculado = ((($this->precio + ($precioDeTecnicaUsado * $this->colores) + $this->operacion) / 0.8) * 1.12) * 1.04;
+            }else{
+                $this->costoCalculado = (($this->precio + ($precioDeTecnicaUsado * $this->colores) + $this->operacion) / 0.8) * 1.12;
+            }
             $this->costoTotal = $this->costoCalculado * $this->cantidad;
             
         }
