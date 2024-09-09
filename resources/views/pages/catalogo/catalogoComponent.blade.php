@@ -61,11 +61,49 @@
                     <div id="accordion-open-body-1" aria-labelledby="accordion-open-heading-1">
                         
                         <div class="rounded-lg">
+
                             <br>
                             <div>
-                                <label class="text-sm" for="name">Nombre:</label>
+                                <label  class="mb-6" style="font-size: 20px;">Catálogo:</label>
+                        
+                                <div class="flex flex-col space-y-4 mt-4">
+                                    
+                                    <a href="#" wire:click="changeProvider({{ 1 }})">
+                                        <div class="flex">
+                                            <span class="inline-block {{ $locationIndicator == 1 ? 'text-black font-semibold  underline' : 'text-stone-600'}} px-1 rounded-sm mr-2" style="font-size: 16px;">
+                                                Guatemala
+                                            </span>
+                                            <img src="{{ asset('./img/banderaGTM.png') }}" alt="" class="w-8 mb-4">
+
+                                        </div>
+                                    
+                                    </a>
+
+
+                                    <a href="#" wire:click="changeProvider({{ 2 }})">
+                                        <div class="flex">
+                                            <span class="inline-block {{ $locationIndicator != 1 ? 'text-black font-semibold  underline' : 'text-stone-600'}} px-1 rounded-sm mr-2" style="font-size: 16px;">
+                                                Importación
+    
+    
+                                            </span>
+                                            <img src="{{ asset('./img/banderaMX.png') }}" alt="" class="w-8 mb-4">
+                                        </div>
+                                        
+                                    </a>
+
+                                </div>
+      
+                            </div>
+
+
+                            <br>
+                     
+                            <div>
+                                <label class="mb-6" for="name" style="font-size: 20px; ">Nombre: <img src="" alt=""></label>
+                                <br>
                                 <input wire:model='nombre' type="text"
-                                    class="py-1 px-2 border border-slate-700 rounded w-full" name="search" id="search"
+                                    class="py-1 px-2 border border-slate-700 rounded w-full mt-4" name="search" id="search"
                                     placeholder="Nombre">
                             </div>
                             <br>
@@ -107,6 +145,14 @@
                                 </div>
       
                             </div>
+
+
+
+
+
+                            
+
+
 
                             <br>
                             <div>

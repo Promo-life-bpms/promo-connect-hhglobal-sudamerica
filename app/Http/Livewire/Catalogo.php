@@ -19,7 +19,7 @@ class Catalogo extends Component
     use WithPagination;
 
     public $category;
-
+    public $locationIndicator = 1;
     public $nombre, $proveedor, $color, $precioMax, $precioMin, $stockMax, $stockMin, $orderStock = '', $orderPrice = '';
     public $search;
 
@@ -51,9 +51,12 @@ class Catalogo extends Component
         } 
 
         // Setear a los valores de porveedores en settings
-        $providerSeleccionados = Settings::where('slug', 'providers')->first();
+        /* $providerSeleccionados = Settings::where('slug', 'providers')->first();
         $providerSeleccionados = trim($providerSeleccionados->value) == '' ? [] : explode(',', trim($providerSeleccionados->value));
-        $this->settings['providers'] = $providerSeleccionados;
+        $this->settings['providers'] = $providerSeleccionados; */
+
+        $this->settings['providers'] = ["1987"];
+
         $utilidad = (float) config('settings.utility');
 
         $price = DB::connection('mysql_catalogo')->table('products')->max('price');
@@ -171,6 +174,24 @@ class Catalogo extends Component
     {
         $this->category = $this->category == $category_id ? null : $category_id;
         Session::put('category', $this->category);
+    }
+
+    public function changeProvider($id)
+    {
+    
+        if($id == 1){
+            $this->locationIndicator = 1;
+
+            $this->settings['providers'] = ["1987"];
+        }else{
+            $providerSeleccionados = Settings::where('slug', 'providers')->first();
+            $providerSeleccionados = trim($providerSeleccionados->value) == '' ? [] : explode(',', trim($providerSeleccionados->value));
+            $this->settings['providers'] = $providerSeleccionados;
+            $this->locationIndicator = 2;
+
+        }
+    
+        Session::put('settings', $this->category);
     }
     
 }

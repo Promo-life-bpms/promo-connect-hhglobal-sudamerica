@@ -48,7 +48,7 @@
                         <div class="rounded-lg">
                             <br>
                             <div>
-                                <label class="text-sm" for="name">Nombre:</label>
+                                <label class="text-lg" for="name">Nombre:</label>
                                 <input wire:model='nombre' type="text"
                                     class="py-1 px-2 border border-slate-700 rounded w-full" name="search" id="search"
                                     placeholder="Nombre">
