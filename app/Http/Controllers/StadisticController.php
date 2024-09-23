@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Muestra;
+use App\Models\Quote;
+use App\Models\Shopping;
+use App\Models\User;
 use App\Models\UserLogs;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -121,7 +125,62 @@ class StadisticController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(30);
 
-        return view('pages.buyer.statistics', compact('stadistics'));
+
+        $activeUsers =  User::whereNotIn('id', $excludedUserIds)->get();
+        
+        $activeUsersData = [
+            'active' => 0,
+            'inactive' => 0,
+        ];
+
+        $totalCotizations = [];
+        $totalShoppings = [];
+        $totalMuestras = [];
+        
+
+        foreach($activeUsers as $user){
+
+            $existUser = UserLogs::where('user_id',$user->id)->first();
+
+            if($existUser){
+                $activeUsersData['active'] += 1;
+            }else{
+                $activeUsersData['inactive'] += 1;
+            }
+
+
+            $allCotization  = Quote::where('user_id', $user->id)->count();
+            $allShoppings  = Shopping::where('user_id', $user->id)->count();
+            $allMuestras  = Muestra::where('user_id', $user->id)->count();
+
+
+            if($allCotization > 0){
+
+                array_push($totalCotizations, (object)[
+                    'user' => $user->name,
+                    'total' => $allCotization,
+                ]);
+
+
+                array_push($totalShoppings, (object)[
+                    'user' => $user->name,
+                    'total' => $allShoppings,
+                ]);
+
+
+                array_push($totalMuestras, (object)[
+                    'user' => $user->name,
+                    'total' => $allMuestras,
+                ]);
+                
+            }
+    
+        }
+
+
+        return view('pages.buyer.statistics', compact('stadistics','activeUsersData', 'totalCotizations','totalShoppings', 'totalMuestras'));
+
+
     }
 
    

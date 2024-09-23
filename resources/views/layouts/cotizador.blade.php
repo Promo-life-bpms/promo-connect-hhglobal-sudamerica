@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
 
     <title>
         HH GLOBAL - 
@@ -93,6 +94,7 @@
         @role(['buyers-manager', 'buyer'])
             @livewire('soporte-component')
         @endrole
+        @yield('scripts')
     </div>
 
     @livewireScripts

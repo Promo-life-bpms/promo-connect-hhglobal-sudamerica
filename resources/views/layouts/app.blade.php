@@ -56,6 +56,7 @@
                 <div class="row layout-top-spacing" >
                     @yield('content')
                 </div>
+                @yield('scripts')
 
                 <div class="footer-wrapper">
                     <div class="footer-section f-section-1">
