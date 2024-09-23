@@ -24,9 +24,36 @@
         </div>
     </div>
     
-    
     <br>
 
+
+    <div class="grid grid-cols-3 gap-4 mx-20 my-5">
+
+        <div class="col-span-1 bg-white shadow-md rounded-lg p-4">
+            <h6 class="font-semibold mb-4 text-sm text-center">Acceso a la plataforma</h6>
+            <canvas id="activeUsersData" width="300" height="300"></canvas>
+        </div>
+
+        <div class="col-span-2 bg-white shadow-md rounded-lg p-4">
+            <h6 class="font-semibold mb-4 text-sm text-center">Muestras por usuario</h6>
+            <canvas id="muestrasBarChart" width="300" height="300"></canvas>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-4 gap-4 mx-20 my-5">
+
+        <div class="col-span-2 bg-white shadow-md rounded-lg p-4">
+            <h6 class="font-semibold mb-4 text-sm text-center">Cotizaciones por usuario</h6>
+            <canvas id="cotizacionesBarChart" width="300" height="300"></canvas>
+        </div>
+
+        <div class="col-span-2 bg-white shadow-md rounded-lg p-4">
+            <h6 class="font-semibold mb-4 text-sm text-center">Compras por usuario</h6>
+            <canvas id="comprasBarChart" width="300" height="300"></canvas>
+        </div>
+
+    </div>
+    
     <div class="mx-20 mb-10">
         <table class="w-full bg-white border border-gray-200">
             <thead>
@@ -95,4 +122,114 @@
    
 
     
-@endsection()
+@endsection
+
+
+@section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script>
+        // Colores para los gráficos
+        var chartColors = ['#1B396A', '#26914F', '#37AF74', '#ECD90F', '#A12040', '#D6BC97'];
+
+        // Configuración de opciones comunes para los gráficos
+        var chartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        fontSize: 12
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        };
+
+        // Datos de los gráficos
+        var chartsData = {
+            activeUsersData: {!! json_encode($activeUsersData) !!},
+        };
+
+        var allCotizations = {!! json_encode($totalCotizations) !!};
+        var userNames = allCotizations.map(item => item.user);
+        var totals = allCotizations.map(item => item.total);
+
+        var allCotizations = {!! json_encode($totalShoppings) !!};
+        var shoppingUserNames = allCotizations.map(item => item.user);
+        var shoppingTotals = allCotizations.map(item => item.total);
+
+        var allCotizations = {!! json_encode($totalShoppings) !!};
+        var shoppingUserNames = allCotizations.map(item => item.user);
+        var shoppingTotals = allCotizations.map(item => item.total);
+
+        // Labels comunes para los gráficos
+        var labels_ranking = ['Muy malo', 'Malo', 'Regular', 'Bueno', 'Excelente'];
+      
+        var allMuestras = {!! json_encode($totalMuestras) !!};
+        var muestasUserNames = allCotizations.map(item => item.user);
+        var muestasTotals = allCotizations.map(item => item.total);
+
+        // Función para generar gráfico de barras
+        function generarGraficoBarras(ctx) {
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: userNames,
+                    datasets: [{
+                        label: 'Total de Cotizaciones',
+                        data: totals,
+                        backgroundColor: chartColors,
+                        borderColor: chartColors,
+                        borderWidth: 1
+                    }]
+                },
+                options: chartOptions
+            });
+        }
+
+        function generarGraficoBarras2(ctx) {
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: shoppingUserNames,
+                    datasets: [{
+                        label: 'Total de Cotizaciones',
+                        data: shoppingTotals,
+                        backgroundColor: chartColors,
+                        borderColor: chartColors,
+                        borderWidth: 1
+                    }]
+                },
+                options: chartOptions
+            });
+        }
+
+        // Función para generar gráfico de dona
+        function generarGraficoDona(ctx, data) {
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Activo', 'Inactivo'],
+                    datasets: [{
+                        label: 'Total',
+                        data: Object.values(data),
+                        backgroundColor: chartColors,
+                        borderColor: chartColors,
+                        borderWidth: 1
+                    }]
+                },
+                options: chartOptions
+            });
+        }
+
+        generarGraficoDona(document.getElementById('activeUsersData').getContext('2d'), chartsData.activeUsersData);
+        generarGraficoBarras(document.getElementById('cotizacionesBarChart').getContext('2d'));
+        generarGraficoBarras2(document.getElementById('comprasBarChart').getContext('2d'));
+        generarGraficoBarras2(document.getElementById('muestrasBarChart').getContext('2d'));
+
+    </script>
+@endsection
