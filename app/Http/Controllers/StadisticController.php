@@ -137,6 +137,9 @@ class StadisticController extends Controller
         $totalShoppings = [];
         $totalMuestras = [];
         
+        $totalCompras = 0;
+        $totalMuestas = 0;
+        $totalCotizaciones = 0;
 
         foreach($activeUsers as $user){
 

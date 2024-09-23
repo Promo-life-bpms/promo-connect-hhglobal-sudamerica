@@ -54,6 +54,7 @@
 
     </div>
     
+    <p class="mx-20 mt-10 mb-4 text-lg"> Registro de acceso de usuarios</p>
     <div class="mx-20 mb-10">
         <table class="w-full bg-white border border-gray-200">
             <thead>
