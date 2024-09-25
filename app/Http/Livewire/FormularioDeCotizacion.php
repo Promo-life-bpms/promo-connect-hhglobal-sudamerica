@@ -304,6 +304,7 @@ class FormularioDeCotizacion extends Component
         $creteUserlog->user_id = $user->id;
         $creteUserlog->type = 'producto';
         $creteUserlog->value = 'agregar al carrito';
+        $creteUserlog->location = auth()->user()->current_location;
         $creteUserlog->save();
 
         $dataQuote = [

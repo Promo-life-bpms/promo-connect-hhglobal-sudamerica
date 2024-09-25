@@ -33,7 +33,7 @@ class UserLogListener
 
     public function handleLogin(Login $event)
     {
-        $this->logAction($event->user->id, 'auth', 'login');
+        $this->logAction($event->user->id, 'auth', 'login', $event->user->current_location);
     }
 
     /**
@@ -44,7 +44,7 @@ class UserLogListener
      */
     public function handleLogout(Logout $event)
     {
-        $this->logAction($event->user->id, 'auth', 'logout');
+        $this->logAction($event->user->id, 'auth', 'logout', $event->user->current_location);
     }
 
     /**
@@ -55,12 +55,13 @@ class UserLogListener
      * @param  string  $value
      * @return void
      */
-    protected function logAction($userId, $type, $value)
+    protected function logAction($userId, $type, $value, $location)
     {
         UserLogs::create([
             'user_id' => $userId,
             'type' => $type,
             'value' => $value,
+            'location' => $location
         ]);
     }
 }

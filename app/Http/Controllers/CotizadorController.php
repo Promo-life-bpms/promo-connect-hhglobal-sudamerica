@@ -724,6 +724,7 @@ class CotizadorController extends Controller
         $creteUserlog->user_id = auth()->user()->id;
         $creteUserlog->type = 'producto';
         $creteUserlog->value = 'confirmar compra';
+        $creteUserlog->location = auth()->user()->current_location;
         $creteUserlog->save();
 
         return redirect()->back()->with('message', 'El producto ha cambiado a status de compra, puedes revisarlo en la pantalla de MIS COMPRAS');

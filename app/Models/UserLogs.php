@@ -11,7 +11,7 @@ class UserLogs extends Model
 
     public $table = 'user_logs';
 
-    protected $fillable = ['user_id','type', 'value'];
+    protected $fillable = ['user_id','type', 'value', 'location'];
 
     public function user()
     {
