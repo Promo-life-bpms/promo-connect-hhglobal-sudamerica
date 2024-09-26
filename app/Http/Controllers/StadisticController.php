@@ -121,10 +121,11 @@ class StadisticController extends Controller
     public function  viewStadistics() {
     
         $excludedUserIds = [1, 2, 3, 4,179, 180,181];
-        $stadistics = UserLogs::whereNotIn('user_id', $excludedUserIds)
+        $user = auth()->user();
+
+        $stadistics = UserLogs::whereNotIn('user_id', $excludedUserIds)->where('location', $user->current_location)
             ->orderBy('created_at', 'desc')
             ->paginate(30);
-
 
         $activeUsers =  User::whereNotIn('id', $excludedUserIds)->get();
         
@@ -151,6 +152,9 @@ class StadisticController extends Controller
                 $activeUsersData['inactive'] += 1;
             }
 
+/*          $allCotization  = Quote::where('user_id', $user->id)->where('location_id', $user->current_location)->count();
+            $allShoppings  = Shopping::where('user_id', $user->id)->where('location_id', $user->current_location)->count();
+            $allMuestras  = Muestra::where('user_id', $user->id)->where('location_id', $user->current_location)->count(); */
 
             $allCotization  = Quote::where('user_id', $user->id)->count();
             $allShoppings  = Shopping::where('user_id', $user->id)->count();
@@ -191,8 +195,9 @@ class StadisticController extends Controller
         $start = $request->start_date;
         $end = $request->end_date;
         
+        $user = auth()->user();
         $excludedUserIds = [1, 2, 3, 4,179, 180,181];
-        $stadistics = UserLogs::whereNotIn('user_id', $excludedUserIds)
+        $stadistics = UserLogs::whereNotIn('user_id', $excludedUserIds)->where('location', $user->current_location)
             ->orderBy('created_at', 'desc')
             ->paginate(30);
 
@@ -223,11 +228,9 @@ class StadisticController extends Controller
             }
 
             $allCotization = Quote::where('user_id', $user->id)->whereBetween('created_at', [$start, $end])->count();
-
             $allShoppings = Shopping::where('user_id', $user->id)->whereBetween('created_at', [$start, $end])->count();
-
             $allMuestras = Muestra::where('user_id', $user->id)->whereBetween('created_at', [$start, $end])->count();
-
+            
 
             if($allCotization > 0){
 
