@@ -154,7 +154,7 @@
             </style>
             
             <a href="{{ route('categoryfilter', ['category' => 9]) }}">
-                <div class="max-w-sm bg-white rounded-lg shadow hover-grow" style="height: 220px;">
+                <div class="max-w-sm bg-white rounded-lg shadow hover-grow" style="height: 240px;">
                     <img class="rounded-t-lg" src="{{ asset('img/categoria1.png') }}" alt="" />
                     <div class="p-5">
                         <h5 class="mb-2 text-2xl font-bold">Accesorios</h5>
@@ -163,7 +163,7 @@
             </a>
             
             <a href="{{ route('categoryfilter', ['category' => 5]) }}">
-                <div class="max-w-sm bg-white rounded-lg shadow hover-grow" style="height: 220px;">
+                <div class="max-w-sm bg-white rounded-lg shadow hover-grow" style="height: 240px;">
                     <img class="rounded-t-lg" src="{{ asset('img/categoria2.png') }}" alt="" />
                     <div class="p-5">
                         <h5 class="mb-2 text-2xl font-bold">Textil</h5>
@@ -172,7 +172,7 @@
             </a>
             
             <a href="{{ route('categoryfilter', ['category' => 7]) }}">
-                <div class="max-w-sm bg-white rounded-lg shadow hover-grow" style="height: 220px;">
+                <div class="max-w-sm bg-white rounded-lg shadow hover-grow" style="height: 240px;">
                     <img class="rounded-t-lg" src="{{ asset('img/categoria3.png') }}" alt="" />
                     <div class="p-5">
                         <h5 class="mb-2 text-2xl font-bold">Ecología</h5>
@@ -181,7 +181,7 @@
             </a>
             
             <a href="{{ route('categoryfilter', ['category' => 14]) }}">
-                <div class="max-w-sm bg-white rounded-lg shadow hover-grow" style="height: 220px;">
+                <div class="max-w-sm bg-white rounded-lg shadow hover-grow" style="height: 240px;">
                     <img class="rounded-t-lg" src="{{ asset('img/categoria4.png') }}" alt="" />
                     <div class="p-5">
                         <h5 class="mb-2 text-2xl font-bold">Tecnología</h5>
@@ -190,7 +190,7 @@
             </a>
             
             <a href="{{ route('categoryfilter', ['category' => 8]) }}">
-                <div class="max-w-sm bg-white rounded-lg shadow hover-grow" style="height: 220px;">
+                <div class="max-w-sm bg-white rounded-lg shadow hover-grow" style="height: 240px;">
                     <img class="rounded-t-lg" src="{{ asset('img/categoria5.png') }}" alt="" />
                     <div class="p-5">
                         <h5 class="mb-2 text-2xl font-bold">Hogar</h5>
