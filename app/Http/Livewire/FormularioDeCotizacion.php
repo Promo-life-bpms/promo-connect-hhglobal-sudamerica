@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Catalogo\ExchangeRate;
 use Livewire\WithFileUploads;
 use App\Models\Catalogo\GlobalAttribute;
 use App\Models\Catalogo\Product;
@@ -39,10 +40,13 @@ class FormularioDeCotizacion extends Component
     public $precioDeTecnica;
 
     public $photo;
+    public $exchange;
 
     public function mount()
     {
         $this->utilidad = config('settings.utility');
+        $this->exchange = ExchangeRate::first()->value('rate');
+
         // $this->priceScales = false;
         if ($this->currentQuote) {
             $this->product = Product::find($this->currentQuote->product_id);
@@ -129,9 +133,18 @@ class FormularioDeCotizacion extends Component
                 }
             }
 
-            $this->precio = $priceProduct;
+            //Productos que no son de GTM
+            if($this->product->provider_id != 1987){
+                $this->precio = $priceProduct * ($this->exchange * 1.10);
 
-            $this->precioCalculado = $this->precio;
+                $this->precioCalculado = $this->precio;
+            }else{
+                $this->precio = $priceProduct ;
+
+                $this->precioCalculado = $this->precio;
+            }
+
+            
         }
 
 
