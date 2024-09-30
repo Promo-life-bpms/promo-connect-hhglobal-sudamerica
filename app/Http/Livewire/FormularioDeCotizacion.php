@@ -135,7 +135,7 @@ class FormularioDeCotizacion extends Component
 
             //Productos que no son de GTM
             if($this->product->provider_id != 1987){
-                $this->precio = $priceProduct * ($this->exchange * 1.10);
+                $this->precio = $priceProduct / ($this->exchange * 1.10);
 
                 $this->precioCalculado = $this->precio;
             }else{
