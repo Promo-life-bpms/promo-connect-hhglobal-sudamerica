@@ -64,6 +64,7 @@ class CotizacionController extends Controller
         $creteUserlog->user_id =auth()->user()->id;
         $creteUserlog->type = 'producto';
         $creteUserlog->value = 'crear cotización';
+        $creteUserlog->location = auth()->user()->current_location;
         $creteUserlog->save();
 
 

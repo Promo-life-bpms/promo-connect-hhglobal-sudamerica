@@ -131,6 +131,7 @@ class CurrentQuoteComponent extends Component
         $creteUserlog->user_id = auth()->user()->id;
         $creteUserlog->type = 'producto';
         $creteUserlog->value = 'editar producto';
+        $creteUserlog->location = auth()->user()->current_location;
         $creteUserlog->save();
        
         return redirect()->to('/carrito');
@@ -154,6 +155,7 @@ class CurrentQuoteComponent extends Component
         $creteUserlog->user_id = auth()->user()->id;
         $creteUserlog->type = 'producto';
         $creteUserlog->value = 'eliminar del carrito';
+        $creteUserlog->location = auth()->user()->current_location;
         $creteUserlog->save();
 
         $this->resetData();
@@ -389,6 +391,7 @@ class CurrentQuoteComponent extends Component
         $creteUserlog->user_id =auth()->user()->id;
         $creteUserlog->type = 'producto';
         $creteUserlog->value = 'crear cotización';
+        $creteUserlog->location = auth()->user()->current_location;
         $creteUserlog->save();
         // Luego puedes usarlo así:
         return response()->downloadWithFlash(public_path($filename));
